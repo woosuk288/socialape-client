@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import AppIcon from "../images/pacman.png";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
 // MUI stuff
@@ -11,12 +10,23 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+// Redux stuff
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../redux/actions/userActions";
+
 const useStyles = makeStyles(theme => ({
   ...theme.sign
 }));
 
 function LoginForm(props) {
   const classes = useStyles();
+
+  const { user, UI } = useSelector(
+    state => ({ user: state.user, UI: state.UI }),
+    []
+  );
+
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -25,32 +35,19 @@ function LoginForm(props) {
     errors: {}
   });
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     console.log("hi : ", formData);
     e.preventDefault();
-    setFormData({
-      ...formData,
-      loading: true
-    });
+    // setFormData({
+    //   ...formData,
+    //   loading: true
+    // });
     const userData = {
       email: formData.email,
       password: formData.password
     };
-    try {
-      const res = await axios.post("/login", userData);
-      localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
-      setFormData({
-        ...formData,
-        loading: false
-      });
-      window.location.href = "/";
-    } catch (err) {
-      setFormData({
-        ...formData,
-        loading: false,
-        errors: err.response.data
-      });
-    }
+
+    dispatch(loginUser(userData, props.history));
   }
 
   function handleChange(e) {
@@ -60,7 +57,8 @@ function LoginForm(props) {
     });
   }
 
-  const { email, password, loading, errors } = formData;
+  const { email, password } = formData;
+  const { loading, errors } = UI;
 
   return (
     <Grid container className={classes.form}>
@@ -124,8 +122,22 @@ function LoginForm(props) {
   );
 }
 
-function login() {
-  return <LoginForm />;
+function login(props) {
+  return <LoginForm {...props} />;
 }
+
+// const mapStateToProps = (state) => ({
+//   user: state.user,
+//   UI: state.UI
+// })
+
+// const mapActionsToProps = {
+//   loginUser
+// }
+
+// export default connect(
+//   mapStateToProps,
+//   mapActionsToProps
+// )(login);
 
 export default login;

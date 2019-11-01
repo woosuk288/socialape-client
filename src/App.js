@@ -6,6 +6,10 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import themeFile from "./util/theme";
 import jwtDecode from "jwt-decode";
 
+// Redux
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 // Components
 import Navbar from "./components/Navbar";
 import AuthRoute from "./util/AuthRoute";
@@ -34,7 +38,7 @@ if (token) {
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
+      <Provider store={store}>
         <BrowserRouter>
           <Navbar />
           <div className="container">
@@ -55,7 +59,7 @@ function App() {
             </Switch>
           </div>
         </BrowserRouter>
-      </div>
+      </Provider>
     </ThemeProvider>
   );
 }

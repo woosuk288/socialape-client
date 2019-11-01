@@ -1,8 +1,8 @@
 {
-  // "emmet.includeLanguages": {
-  //   "javascript": "javascriptreact"
-  // },
-  "files.associations": {
-    "*.js": "javascriptreact"
-  }
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  // "files.associations": {
+  //   "*.js": "javascript"
+  // }
 }
