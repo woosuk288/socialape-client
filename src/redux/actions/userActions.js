@@ -3,7 +3,6 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   LOADING_UI,
-  SET_AUTHENTICATED,
   SET_UNAUTHENTICATED
 } from "../type";
 import axios from "axios";
@@ -15,7 +14,6 @@ export const loginUser = (userData, history) => async dispatch => {
   try {
     const res = await axios.post("/login", userData);
     setAuthorizationHeader(res.data.token);
-    dispatch({ type: SET_AUTHENTICATED });
     dispatch(getUserData());
     dispatch({ type: CLEAR_ERRORS });
     history.push("/");
@@ -34,7 +32,6 @@ export const signupUser = (newUserData, history) => async dispatch => {
   try {
     const res = await axios.post("/signup", newUserData);
     setAuthorizationHeader(res.data.token);
-    dispatch({ type: SET_AUTHENTICATED });
     dispatch(getUserData());
     dispatch({ type: CLEAR_ERRORS });
     history.push("/");
@@ -47,7 +44,7 @@ export const signupUser = (newUserData, history) => async dispatch => {
 };
 
 export const logoutUser = () => dispatch => {
-  localStorage.removeItem("token");
+  localStorage.removeItem("FBIdToken");
   delete axios.defaults.headers.common["Authorization"];
   dispatch({ type: SET_UNAUTHENTICATED });
 };

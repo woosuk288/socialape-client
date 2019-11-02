@@ -25,20 +25,15 @@ import axios from "axios";
 const theme = createMuiTheme(themeFile);
 
 const { dispatch } = store;
-const { authenticated } = store.getState().user;
 
 const token = localStorage.FBIdToken;
-// store.getState()
 
-console.log("authenticated : ", authenticated);
-
-if (authenticated && token) {
-  console.log("state : ", authenticated);
+if (token) {
   const decodedToken = jwtDecode(token);
   console.log("decodedToken : ", decodedToken);
   if (decodedToken.exp * 1000 < Date.now()) {
     dispatch(logoutUser());
-    window.location.href = "/lgoin";
+    window.location.href = "/login";
   } else {
     dispatch({ type: SET_AUTHENTICATED });
     axios.defaults.headers.common["Authorization"] = token;

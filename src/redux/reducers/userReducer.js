@@ -1,11 +1,13 @@
 import {
   SET_USER,
   SET_AUTHENTICATED,
-  SET_UNAUTHENTICATED
+  SET_UNAUTHENTICATED,
+  LOADING_USER
 } from "../type";
 
 const initialState = {
   authenticated: false,
+  loading: false,
   credentials: {},
   likes: [],
   notifications: []
@@ -13,6 +15,11 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case LOADING_USER:
+      return {
+        ...state,
+        loading: true
+      };
     case SET_AUTHENTICATED:
       return {
         ...state,
