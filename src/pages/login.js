@@ -36,12 +36,7 @@ function LoginForm(props) {
   });
 
   function handleSubmit(e) {
-    console.log("hi : ", formData);
     e.preventDefault();
-    // setFormData({
-    //   ...formData,
-    //   loading: true
-    // });
     const userData = {
       email: formData.email,
       password: formData.password

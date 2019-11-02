@@ -9,6 +9,8 @@ import jwtDecode from "jwt-decode";
 // Redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { logoutUser, getUserData } from "./redux/actions/userActions";
+import { SET_AUTHENTICATED } from "./redux/type";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -18,20 +20,29 @@ import AuthRoute from "./util/AuthRoute";
 import home from "./pages/home";
 import login from "./pages/login";
 import signup from "./pages/signup";
+import axios from "axios";
 
 const theme = createMuiTheme(themeFile);
 
-const token = localStorage.FBIdToken;
+const { dispatch } = store;
+const { authenticated } = store.getState().user;
 
-let authenticated;
-if (token) {
+const token = localStorage.FBIdToken;
+// store.getState()
+
+console.log("authenticated : ", authenticated);
+
+if (authenticated && token) {
+  console.log("state : ", authenticated);
   const decodedToken = jwtDecode(token);
-  console.log("de : ", decodedToken);
+  console.log("decodedToken : ", decodedToken);
   if (decodedToken.exp * 1000 < Date.now()) {
-    window.location.href = "/";
-    authenticated = false;
+    dispatch(logoutUser());
+    window.location.href = "/lgoin";
   } else {
-    authenticated = true;
+    dispatch({ type: SET_AUTHENTICATED });
+    axios.defaults.headers.common["Authorization"] = token;
+    dispatch(getUserData());
   }
 }
 
@@ -44,18 +55,8 @@ function App() {
           <div className="container">
             <Switch>
               <Route exact path="/" component={home} />
-              <AuthRoute
-                exact
-                path="/login"
-                component={login}
-                authenticated={authenticated}
-              />
-              <AuthRoute
-                exact
-                path="/signup"
-                component={signup}
-                authenticated={authenticated}
-              />
+              <AuthRoute exact path="/login" component={login} />
+              <AuthRoute exact path="/signup" component={signup} />
             </Switch>
           </div>
         </BrowserRouter>

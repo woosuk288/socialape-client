@@ -11,12 +11,22 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+// Redux stuff
+import { useSelector, useDispatch } from "react-redux";
+import { signupUser } from "../redux/actions/userActions";
+
 const useStyles = makeStyles(theme => ({
   ...theme.sign
 }));
 
 function SignupForm(props) {
   const classes = useStyles();
+
+  const { user, UI } = useSelector(
+    state => ({ user: state.user, UI: state.UI }),
+    []
+  );
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -28,34 +38,15 @@ function SignupForm(props) {
   });
 
   async function handleSubmit(e) {
-    console.log("hi : ", formData);
     e.preventDefault();
-    setFormData({
-      ...formData,
-      loading: true,
-      errors: {}
-    });
     const newUserData = {
       email: formData.email,
       password: formData.password,
       confirmPassword: formData.confirmPassword,
-      handle: formData.handle 
+      handle: formData.handle
     };
-    try {
-      const res = await axios.post("/signup", newUserData);
-      localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
-      setFormData({
-        ...formData,
-        loading: false
-      });
-      window.location.href = "/";
-    } catch (err) {
-      setFormData({
-        ...formData,
-        loading: false,
-        errors: err.response.data
-      });
-    }
+
+    dispatch(signupUser(newUserData, props.history));
   }
 
   function handleChange(e) {
@@ -65,14 +56,9 @@ function SignupForm(props) {
     });
   }
 
-  const {
-    email,
-    password,
-    confirmPassword,
-    handle,
-    loading,
-    errors
-  } = formData;
+  const { email, password, confirmPassword, handle } = formData;
+
+  const { loading, errors } = UI;
 
   return (
     <Grid container className={classes.form}>
@@ -160,8 +146,8 @@ function SignupForm(props) {
   );
 }
 
-function signup() {
-  return <SignupForm />;
+function signup(props) {
+  return <SignupForm {...props} />;
 }
 
 export default signup;
