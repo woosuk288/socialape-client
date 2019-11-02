@@ -3,7 +3,8 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   LOADING_UI,
-  SET_UNAUTHENTICATED
+  SET_UNAUTHENTICATED,
+  LOADING_USER
 } from "../type";
 import axios from "axios";
 
@@ -56,6 +57,16 @@ export const getUserData = () => async dispatch => {
       type: SET_USER,
       payload: res.data
     });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const uploadImage = formData => async dispatch => {
+  dispatch({ type: LOADING_USER });
+  try {
+    await axios.post("/user/image", formData);
+    dispatch(getUserData());
   } catch (err) {
     console.error(err);
   }
