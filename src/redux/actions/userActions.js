@@ -51,6 +51,7 @@ export const logoutUser = () => dispatch => {
 };
 
 export const getUserData = () => async dispatch => {
+  dispatch({ type: LOADING_USER });
   try {
     const res = await axios.get("/user");
     dispatch({
@@ -66,6 +67,17 @@ export const uploadImage = formData => async dispatch => {
   dispatch({ type: LOADING_USER });
   try {
     await axios.post("/user/image", formData);
+    dispatch(getUserData());
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const editUserDetails = userDetails => async dispatch => {
+  dispatch({ type: LOADING_USER });
+
+  try {
+    await axios.post("/user", userDetails);
     dispatch(getUserData());
   } catch (err) {
     console.error(err);

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
+import EditDetails from "./EditDetails";
 
 // Redux suff
 import { useSelector, useDispatch } from "react-redux";
@@ -20,6 +21,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
+import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -42,6 +44,10 @@ function Profile() {
   function handleEditPicture() {
     const fileInput = document.getElementById("imageUpload");
     fileInput.click();
+  }
+
+  function handleLogout() {
+    dispatch(logoutUser());
   }
 
   const {
@@ -100,6 +106,12 @@ function Profile() {
           <CalendarToday color="primary" />{" "}
           <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
         </div>
+        <Tooltip title="logout" placement="top">
+          <IconButton onClick={handleLogout}>
+            <KeyboardReturn color="primary"></KeyboardReturn>
+          </IconButton>
+        </Tooltip>
+        <EditDetails />
       </div>
     </Paper>
   );

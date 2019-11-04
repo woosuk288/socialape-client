@@ -121,18 +121,4 @@ function login(props) {
   return <LoginForm {...props} />;
 }
 
-// const mapStateToProps = (state) => ({
-//   user: state.user,
-//   UI: state.UI
-// })
-
-// const mapActionsToProps = {
-//   loginUser
-// }
-
-// export default connect(
-//   mapStateToProps,
-//   mapActionsToProps
-// )(login);
-
 export default login;
