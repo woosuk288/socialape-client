@@ -3,7 +3,8 @@ import {
   UNLIKE_SCREAMS,
   SET_SCREAMS,
   LOADING_DATA,
-  DELETE_SCREAM
+  DELETE_SCREAM,
+  POST_SCREAM
 } from "../type";
 
 const initialState = {
@@ -42,6 +43,11 @@ export default function(state = initialState, action) {
       state.screams.splice(index, 1);
       return {
         ...state
+      };
+    case POST_SCREAM:
+      return {
+        ...state,
+        screams: [action.payload, ...state.screams]
       };
     default:
       return state;

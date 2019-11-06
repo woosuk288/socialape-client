@@ -11,7 +11,7 @@ import { getScreams } from "../redux/actions/dataActions";
 function ScreamList(props) {
   // const [screams, setScreams] = useState(null);
   // useSelector
-  const data = useSelector(state => state.data, []);
+  const data = useSelector(state => state.data);
   const { screams, loading } = data;
 
   const dispath = useDispatch();
