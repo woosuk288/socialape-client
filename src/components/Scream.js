@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 import MyButton from "../util/MyButton";
+import DeleteButton from "./DeleteButton";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -27,6 +28,7 @@ const useStyles = makeStyles(theme => ({
   // },
 
   card: {
+    position: 'relative',
     display: "flex",
     marginBottom: 20
   },
@@ -87,6 +89,11 @@ function Scream(props) {
     </MyButton>
   );
 
+  const deleteButton =
+    user.authenticated && userHandle === user.credentials.handle ? (
+      <DeleteButton screamId={screamId} />
+    ) : null;
+
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -103,6 +110,7 @@ function Scream(props) {
         >
           {userHandle}
         </Typography>
+        {deleteButton}
         <Typography variant="body2" color="textSecondary">
           {dayjs(createdAt).fromNow()}
         </Typography>
