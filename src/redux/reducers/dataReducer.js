@@ -2,6 +2,7 @@ import {
   LIKE_SCREAMS,
   UNLIKE_SCREAMS,
   SET_SCREAMS,
+  SET_SCREAM,
   LOADING_DATA,
   DELETE_SCREAM,
   POST_SCREAM
@@ -27,6 +28,11 @@ export default function(state = initialState, action) {
         screams: action.payload,
         loading: false
       };
+    case SET_SCREAM:
+    return {
+      ...state,
+      scream: action.payload
+    }
     case LIKE_SCREAMS:
     case UNLIKE_SCREAMS:
       index = state.screams.findIndex(

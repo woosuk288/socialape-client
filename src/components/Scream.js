@@ -6,6 +6,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 import MyButton from "../util/MyButton";
 import DeleteButton from "./DeleteButton";
+import ScreamDialog from "./ScreamDialog";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   // },
 
   card: {
-    position: 'relative',
+    position: "relative",
     display: "flex",
     marginBottom: 20
   },
@@ -120,6 +121,7 @@ function Scream(props) {
           <ChatIcon color="primary" />
         </MyButton>
         <span>{commentCount}</span>
+        <ScreamDialog screamId={screamId} userHandle={userHandle} />
       </CardContent>
     </Card>
   );
