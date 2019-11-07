@@ -15,9 +15,8 @@ import axios from "axios";
 
 export const getScreams = () => async dispatch => {
   dispatch({ type: LOADING_DATA });
-  const res = await axios.get("/screams");
-
   try {
+    const res = await axios.get("/screams");
     dispatch({ type: SET_SCREAMS, payload: res.data });
   } catch (err) {
     dispatch({ type: SET_SCREAMS, payload: [] });
@@ -25,7 +24,6 @@ export const getScreams = () => async dispatch => {
 };
 
 export const getScream = screamId => async dispatch => {
-  console.log('hey getStream : ', screamId)
   dispatch({ type: LOADING_UI });
   try {
     const res = await axios.get(`/scream/${screamId}`);

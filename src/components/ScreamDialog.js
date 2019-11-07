@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 import MyButton from "../util/MyButton";
+import LikeButton from "./LikeButton";
 
 // MUI stuff
 import Grid from "@material-ui/core/Grid";
@@ -28,12 +29,12 @@ import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   invisibleSeparator: {
-    border: 'none',
+    border: "none",
     margin: 4
   },
   visibleSeparator: {
-    width: '100%',
-    borderBottom: '1px solid rgba(0,0,0,0.1)',
+    width: "100%",
+    borderBottom: "1px solid rgba(0,0,0,0.1)",
     marginBottom: 20
   },
   profileImage: {
@@ -96,7 +97,7 @@ function ScreamDialog(props) {
       <CircularProgress size={200} thickness={2} />
     </div>
   ) : (
-    <Grid container spacing={16}>
+    <Grid container spacing={2}>
       <Grid item sm={5}>
         <img src={userImage} alt="Profile" className={classes.profileImage} />
       </Grid>
@@ -115,12 +116,12 @@ function ScreamDialog(props) {
         </Typography>
         <hr className={classes.invisibleSeparator} />
         <Typography variant="body1">{body}</Typography>
-        {/* <LikeButton screamId={screamId} />
+        <LikeButton screamId={screamId} />
         <span>{likeCount} likes</span>
         <MyButton tip="comments">
           <ChatIcon color="primary" />
         </MyButton>
-        <span>{commentCount} comments</span> */}
+        <span>{commentCount} comments</span>
       </Grid>
       {/* <hr className={classes.visibleSeparator} />
       <CommentForm screamId={screamId} />
