@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 import LikeButton from "./LikeButton";
+import Comments from './Comments';
 
 // MUI stuff
 import Grid from "@material-ui/core/Grid";
@@ -24,7 +25,7 @@ import UnfoldMore from "@material-ui/icons/UnfoldMore";
 import ChatIcon from "@material-ui/icons/Chat";
 
 // Redux
-import { getScream } from "../redux/actions/dataActions";
+import { getScream } from "../../redux/actions/dataActions";
 import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
@@ -77,7 +78,8 @@ function ScreamDialog(props) {
     commentCount,
     createdAt,
     userHandle,
-    userImage
+    userImage,
+    comments
   } = scream;
 
   const { loading } = UI;
@@ -123,9 +125,9 @@ function ScreamDialog(props) {
         </MyButton>
         <span>{commentCount} comments</span>
       </Grid>
-      {/* <hr className={classes.visibleSeparator} />
-      <CommentForm screamId={screamId} />
-      <Comments comments={comments} /> */}
+      <hr className={classes.visibleSeparator} />
+      {/* <CommentForm screamId={screamId} /> */}
+      <Comments comments={comments} />
     </Grid>
   );
 

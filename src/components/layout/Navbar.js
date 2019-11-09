@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import MyButton from "../util/MyButton";
-import PostScream from "./PostScream";
+import MyButton from "../../util/MyButton";
+import PostScream from "../scream/PostScream";
 
 // MUI stuff
 import AppBar from "@material-ui/core/AppBar";

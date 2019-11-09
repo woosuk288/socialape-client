@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { postScream } from "../redux/actions/dataActions";
+import { postScream } from "../../redux/actions/dataActions";
 
 // MUI
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -17,7 +17,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
-import { CLEAR_ERRORS } from "../redux/type";
+import { CLEAR_ERRORS } from "../../redux/type";
 
 const useStyles = makeStyles(theme => ({
   submitButton: {

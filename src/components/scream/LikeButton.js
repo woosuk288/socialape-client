@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   likeScream as likeScreamAct,
   unlikeScream as unlikeScreamAct
-} from "../redux/actions/dataActions";
+} from "../../redux/actions/dataActions";
 
 function LikeButton(props) {
   const user = useSelector(state => state.user, []);
