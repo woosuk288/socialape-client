@@ -6,13 +6,15 @@ import {
   LOADING_DATA,
   DELETE_SCREAM,
   POST_SCREAM,
-  SUBMIT_COMMENT
+  SUBMIT_COMMENT,
+  SET_PROFILE
 } from "../type";
 
 const initialState = {
   screams: [],
   scream: {},
-  loading: false
+  loading: false,
+  profile: null
 };
 
 export default function(state = initialState, action) {
@@ -70,6 +72,11 @@ export default function(state = initialState, action) {
           comments: [action.payload, ...state.scream.comments]
         }
       };
+    case SET_PROFILE:
+      return {
+        ...state,
+        profile: action.payload
+      }
     default:
       return state;
   }

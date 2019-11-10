@@ -10,7 +10,8 @@ import {
   POST_SCREAM,
   SET_ERRORS,
   CLEAR_ERRORS,
-  SUBMIT_COMMENT
+  SUBMIT_COMMENT,
+  SET_PROFILE
 } from "../type";
 import axios from "axios";
 
@@ -79,6 +80,24 @@ export const submitComment = (screamId, commentData) => async dispatch => {
       payload: err.response.data
     });
     return false;
+  }
+};
+
+export const getUserProfile = userHandle => async dispatch => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    const res = await axios.get(`/user/${userHandle}`);
+    dispatch({ type: SET_SCREAMS, payload: res.data.screams });
+    dispatch({ type: SET_PROFILE, payload: res.data.user });
+  } catch (err) {
+    dispatch({
+      type: SET_SCREAMS,
+      payload: null
+    });
+    dispatch({
+      type: SET_PROFILE,
+      payload: null
+    });
   }
 };
 
