@@ -7,7 +7,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 import MyButton from "../../util/MyButton";
 import LikeButton from "./LikeButton";
-import Comments from './Comments';
+import Comments from "./Comments";
+import CommentForm from "./CommentForm";
 
 // MUI stuff
 import Grid from "@material-ui/core/Grid";
@@ -27,6 +28,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 // Redux
 import { getScream } from "../../redux/actions/dataActions";
 import { useSelector, useDispatch } from "react-redux";
+import { CLEAR_ERRORS } from '../../redux/type'
 
 const useStyles = makeStyles(theme => ({
   invisibleSeparator: {
@@ -92,6 +94,7 @@ function ScreamDialog(props) {
   }
   function handleClose() {
     setOpen(false);
+    dispatch({ type: CLEAR_ERRORS });
   }
 
   const dialogMarkup = loading ? (
@@ -126,7 +129,7 @@ function ScreamDialog(props) {
         <span>{commentCount} comments</span>
       </Grid>
       <hr className={classes.visibleSeparator} />
-      {/* <CommentForm screamId={screamId} /> */}
+      <CommentForm screamId={screamId} />
       <Comments comments={comments} />
     </Grid>
   );
