@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Link } from "react-router-dom";
@@ -28,7 +28,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 // Redux
 import { getScream } from "../../redux/actions/dataActions";
 import { useSelector, useDispatch } from "react-redux";
-import { CLEAR_ERRORS } from '../../redux/type'
+import { CLEAR_ERRORS } from "../../redux/type";
 
 const useStyles = makeStyles(theme => ({
   invisibleSeparator: {
@@ -68,6 +68,8 @@ function ScreamDialog(props) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
+  const [oldPath, setOldPath] = useState("");
+  const [newPath, setNewPath] = useState("");
 
   const { scream, UI } = useSelector(
     state => ({ scream: state.data.scream, UI: state.UI }),
@@ -89,13 +91,28 @@ function ScreamDialog(props) {
   const dispatch = useDispatch();
 
   function handleOpen() {
+    let oldPath = window.location.pathname;
+    const newPath = `/users/${props.userHandle}/scream/${props.screamId}`;
+    if (oldPath === newPath) oldPath = `/users/${props.userHandle}`;
+
+    window.history.pushState(null, null, newPath);
+
     setOpen(true);
+    setOldPath(oldPath);
+    setNewPath(newPath);
     dispatch(getScream(props.screamId));
   }
   function handleClose() {
+    window.history.pushState(null, null, oldPath);
     setOpen(false);
     dispatch({ type: CLEAR_ERRORS });
   }
+
+  useEffect(() => {
+    if (props.openDialog) {
+      handleOpen();
+    }
+  }, []);
 
   const dialogMarkup = loading ? (
     <div className={classes.spinnerDiv}>

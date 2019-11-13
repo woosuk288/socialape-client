@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "../redux/actions/dataActions";
 
 function UserProfile(props) {
-  // const screamId = props.match.params.screamId;
+  const screamId = props.match.params.screamId;
   const handle = props.match.params.handle;
 
   const data = useSelector(state => state.data, []);
@@ -26,19 +26,15 @@ function UserProfile(props) {
     <p>...Loaidng data </p>
   ) : screams === null ? (
     <p>No screams from this user</p>
-  ) : (
+  ) : !screamId ? (
     screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
+  ) : (
+    screams.map(scream => {
+      if (scream.screamId !== screamId)
+        return <Scream key={scream.screamId} scream={scream} />;
+      else return <Scream key={scream.screamId} scream={scream} openDialog />;
+    })
   );
-
-  // !screamId ? (
-  //   screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
-  // ) : (
-  //   screams.map(scream => {
-  //     if (scream.screamId !== screamId)
-  //       return <Scream key={scream.screamId} scream={scream} />;
-  //     else return <Scream key={scream.screamId} scream={scream} openDialog />;
-  //   })
-  // );
 
   return (
     <Grid container spacing={2}>

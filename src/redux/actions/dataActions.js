@@ -92,7 +92,7 @@ export const getUserProfile = userHandle => async dispatch => {
   } catch (err) {
     dispatch({
       type: SET_SCREAMS,
-      payload: null
+      payload: {}
     });
     dispatch({
       type: SET_PROFILE,
