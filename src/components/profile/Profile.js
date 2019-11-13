@@ -4,7 +4,9 @@ import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
 import MyButton from "../../util/MyButton";
 
-// Redux suff
+import ProfileSkeleton from "../../util/ProfileSkeleton";
+
+// Redux suff 
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, uploadImage } from "../../redux/actions/userActions";
 
@@ -148,7 +150,7 @@ function Profile() {
   } else if (!loading && !authenticated) {
     profileMarkup = unauthCmpnt();
   } else {
-    profileMarkup = <div>Loading...</div>;
+    profileMarkup = <ProfileSkeleton />;
   }
 
   return profileMarkup;
