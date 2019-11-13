@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 
 import MyButton from "../../util/MyButton";
 import LikeButton from "./LikeButton";
@@ -13,10 +12,8 @@ import CommentForm from "./CommentForm";
 // MUI stuff
 import Grid from "@material-ui/core/Grid";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import TextField from "@material-ui/core/TextField";
+
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 

@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MyButton from "../../util/MyButton";
 import PostScream from "../scream/PostScream";
+import Notifications from "./Notifications";
 
 // MUI stuff
 import AppBar from "@material-ui/core/AppBar";
@@ -11,7 +12,6 @@ import Button from "@material-ui/core/Button";
 
 // Icons
 import HomeIcon from "@material-ui/icons/Home";
-import Notifications from "@material-ui/icons/Notifications";
 
 function Navbar() {
   const { authenticated } = useSelector(state => state.user);
@@ -27,9 +27,7 @@ function Navbar() {
                 <HomeIcon color="primary" />
               </MyButton>
             </Link>
-            <MyButton tip="Notifications">
-              <Notifications color="primary" />
-            </MyButton>
+            <Notifications />
           </>
         ) : (
           <>
