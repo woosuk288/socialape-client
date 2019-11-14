@@ -27,8 +27,10 @@ const theme = createMuiTheme(themeFile);
 
 const { dispatch } = store;
 
-const token = localStorage.FBIdToken;
+axios.defaults.baseURL =
+  "https://asia-northeast1-socialappclone.cloudfunctions.net/api";
 
+const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
   console.log("decodedToken : ", decodedToken);
